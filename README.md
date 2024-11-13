@@ -11,10 +11,21 @@ next mersenne prime is 8191
 hex of 8191 -> 1fff
 can you ses pattern
 yes. mersanne prime number is nothing but combination 1,7,f
-we can create mersanne prime number by combining one prefix 1,6
+we can create mersanne prime number by combining one prefix 1,7
 and lot of f 
 now we can check if generated number is prime or not 
 if it is then you have got your mersenne prime number 
+
+as we know if you have mersanne prime number
+you can get perfect number by using this formula
+p= ((m^2)+m)/2
+whare 
+p: perfect number 
+m: mersanne prime number 
+that's why we have created Get perfect number
+enter prefix 
+enter f count 
+that it...
 
 # BGMP-algorithm
 BGMP stands for Bhole Gopal Mersanne Prime algorithm is very efficient for generating candidates for mersanne prime numbers
