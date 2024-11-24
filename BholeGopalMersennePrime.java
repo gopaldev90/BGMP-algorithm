@@ -22,6 +22,7 @@ public class BholeGopalMersennePrime {
 		apvaad.add(47);
 	}
 
+
 	// precomputed merssenn primes
 	public static Map<Integer, int[]> createMap() {
 		Map<Integer, int[]> map = new HashMap<>();
@@ -52,32 +53,32 @@ public class BholeGopalMersennePrime {
 		map.put(24, new int[] { 1, 4984 });
 		map.put(25, new int[] { 1, 5425 });
 		map.put(26, new int[] { 1, 5802 });
-		map.put(27, new int[] { 1, 11124 });
-		map.put(28, new int[] { 7, 21560 });
-		map.put(29, new int[] { 7, 27625 });
-		map.put(30, new int[] { 1, 33012 });
-		map.put(31, new int[] { 7, 54022 });
-		map.put(32, new int[] { 7, 189209 });
-		map.put(33, new int[] { 1, 214858 });
-		map.put(34, new int[] { 7, 314446 });
-		map.put(35, new int[] { 1, 349567 });
-		map.put(36, new int[] { 1, 744055 });
-		map.put(37, new int[] { 1, 755344 });
-		map.put(38, new int[] { 1, 1743148 });
-		map.put(39, new int[] { 1, 3366729 });
-		map.put(40, new int[] { 7, 5249002 });
-		map.put(41, new int[] { 7, 6009145 });
-		map.put(42, new int[] { 7, 6491237 });
-		map.put(43, new int[] { 1, 7600614 });
-		map.put(44, new int[] { 1, 8145664 });
-		map.put(45, new int[] { 7, 9289166 });
-		map.put(46, new int[] { 1, 10660950 });
-		map.put(47, new int[] { 1, 10778152 });
-		map.put(48, new int[] { 1, 14471290 });
-		map.put(49, new int[] { 1, 18551820 });
-		map.put(50, new int[] { 1, 19308229 });
-		map.put(51, new int[] { 1, 20647483 });
-		map.put(52, new int[] { 1, 34069960 });
+		map.put(27, new int[] { 1, 11124});
+		map.put(28, new int[] { 7, 21560});
+		map.put(29, new int[] { 7, 27625});
+		map.put(30, new int[] { 1, 33012});
+		map.put(31, new int[] { 7, 54022});
+		map.put(32, new int[] { 7, 189209});
+		map.put(33, new int[] { 1, 214858});
+		map.put(34, new int[] { 7, 314446});
+		map.put(35, new int[] { 1, 349567});
+		map.put(36, new int[] { 1, 744055});
+		map.put(37, new int[] { 1, 755344});
+		map.put(38, new int[] { 1, 1743148});
+		map.put(39, new int[] { 1, 3366729});
+		map.put(40, new int[] { 7, 5249002});
+		map.put(41, new int[] { 7, 6009145});
+		map.put(42, new int[] { 7, 6491237});
+		map.put(43, new int[] { 1, 7600614});
+		map.put(44, new int[] { 1, 8145664});
+		map.put(45, new int[] { 7, 9289166});
+		map.put(46, new int[] { 1, 10660950});
+		map.put(47, new int[] { 1, 10778152});
+		map.put(48, new int[] { 1, 14471290});
+		map.put(49, new int[] { 1, 18551820});
+		map.put(50, new int[] { 1, 19308229});
+		map.put(51, new int[] { 1, 20647483});
+		map.put(52, new int[] { 1, 34069960});
 		return map;
 	}
 
@@ -96,8 +97,8 @@ public class BholeGopalMersennePrime {
 	public static boolean isPrime(BigInteger n, String hxnum) {
 		System.out.println("abhajya janch rha " + hxnum);
 		Boolean parin;
-		
-		Boolean alas = false;
+
+		Boolean alas = (false);
 		try {
 			if (!alas) {
 				parin = n.isProbablePrime(13);
@@ -117,9 +118,10 @@ public class BholeGopalMersennePrime {
 			System.out.println(e.getMessage());
 			parin = false;
 		}
-		// System.out.println("prinaam:" + parin);
+		//System.out.println("prinaam:" + parin);
 		return parin;
 	}
+
 
 	public static int logBase2(BigInteger value) {
 		if (!isPowerOfTwo(value)) {
@@ -170,24 +172,26 @@ public class BholeGopalMersennePrime {
 		BigInteger power = base;
 
 		while (exp > 0) {
-			if (exp % 2 == 1) { // If exp is odd
+			if (exp % 2 == 1) {  // If exp is odd
 				result = result.multiply(power);
 			}
-			power = power.multiply(power); // Square the base
-			exp /= 2; // Divide exp by 2
+			power = power.multiply(power);  // Square the base
+			exp /= 2;  // Divide exp by 2
 		}
 
 		return result;
 	}
 
+
+
 	public static String getmersn(int n) {
 		String[] op = { "1", "7" };
-
 		int maxn = lastmeessen();
+		BigInteger base = BigInteger.valueOf(16);
 		int banne = 0;
 		long fCount = 0;
 		long jarirak = 34069961;
-		// jarirak = 20647488;maxn = 51;
+		jarirak = 2421;maxn = 20;
 		int mapsenik = 0;
 		String result;
 		BigInteger num;
@@ -210,18 +214,17 @@ public class BholeGopalMersennePrime {
 				// nayi value yahan bnao
 				// n=(n*16)+15
 				fCount += 1;
-				for (String option : op) {
+				BigInteger power = fastPower(base, fCount);
 
+				for (String option : op) {
 					// Create the Mersenne number in the form 0x{option} + f*
 
 					if (option == "1") {
-						BigInteger base = BigInteger.valueOf(16);
-						BigInteger power = fastPower(base, fCount);
+
 						num = power.multiply(BigInteger.valueOf(2)).subtract(BigInteger.ONE);
 						// 2 * 16^fcount - 1
 					} else if (option == "7") {
-						BigInteger base = BigInteger.valueOf(16);
-						BigInteger power = fastPower(base, fCount);
+
 						num = power.multiply(BigInteger.valueOf(7)).add(power.subtract(BigInteger.ONE));
 						// 7 * 16^fcount + (16^fcount - 1)
 					} else {
@@ -231,12 +234,12 @@ public class BholeGopalMersennePrime {
 						mersen = option + "," + fCount;
 						banne++;
 						System.out.println("bnaya " + banne + ". Found: " + option + " f: " + fCount);
-						// System.out.println(num);
-
+						break;
 					}
 				}
 
 			}
+
 
 		}
 		return mersen;
