@@ -3,9 +3,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.*;
+import java.util.List;
 import java.util.Scanner;
 
 public class BholeGopalMersennePrime {
+
+	public static List<Integer> apvaad = new ArrayList<>();
+
+	static {
+		apvaad.add(9);
+		apvaad.add(11);
+		apvaad.add(15);
+		apvaad.add(23);
+		apvaad.add(29);
+		apvaad.add(37);
+		apvaad.add(41);
+		apvaad.add(43);
+		apvaad.add(47);
+	}
+
 	// precomputed merssenn primes
 	public static Map<Integer, int[]> createMap() {
 		Map<Integer, int[]> map = new HashMap<>();
@@ -36,8 +52,32 @@ public class BholeGopalMersennePrime {
 		map.put(24, new int[] { 1, 4984 });
 		map.put(25, new int[] { 1, 5425 });
 		map.put(26, new int[] { 1, 5802 });
-		
-		
+		map.put(27, new int[] { 1, 11124 });
+		map.put(28, new int[] { 7, 21560 });
+		map.put(29, new int[] { 7, 27625 });
+		map.put(30, new int[] { 1, 33012 });
+		map.put(31, new int[] { 7, 54022 });
+		map.put(32, new int[] { 7, 189209 });
+		map.put(33, new int[] { 1, 214858 });
+		map.put(34, new int[] { 7, 314446 });
+		map.put(35, new int[] { 1, 349567 });
+		map.put(36, new int[] { 1, 744055 });
+		map.put(37, new int[] { 1, 755344 });
+		map.put(38, new int[] { 1, 1743148 });
+		map.put(39, new int[] { 1, 3366729 });
+		map.put(40, new int[] { 7, 5249002 });
+		map.put(41, new int[] { 7, 6009145 });
+		map.put(42, new int[] { 7, 6491237 });
+		map.put(43, new int[] { 1, 7600614 });
+		map.put(44, new int[] { 1, 8145664 });
+		map.put(45, new int[] { 7, 9289166 });
+		map.put(46, new int[] { 1, 10660950 });
+		map.put(47, new int[] { 1, 10778152 });
+		map.put(48, new int[] { 1, 14471290 });
+		map.put(49, new int[] { 1, 18551820 });
+		map.put(50, new int[] { 1, 19308229 });
+		map.put(51, new int[] { 1, 20647483 });
+		map.put(52, new int[] { 1, 34069960 });
 		return map;
 	}
 
@@ -55,9 +95,41 @@ public class BholeGopalMersennePrime {
 	// Function to check if a number is prime
 	public static boolean isPrime(BigInteger n, String hxnum) {
 		System.out.println("abhajya janch rha " + hxnum);
-		Boolean parin = n.isProbablePrime(13);
-		System.out.println("prinaam:" + parin);
+		Boolean parin;
+		
+		Boolean alas = false;
+		try {
+			if (!alas) {
+				parin = n.isProbablePrime(13);
+			} else {
+				int p = logBase2(n.add(BigInteger.ONE));
+				System.out.println("p=" + p);
+				parin = BigInteger.valueOf(p).isProbablePrime(20);
+				if (parin) {
+					parin = !(apvaad.contains(p));
+				}
+				if (parin) {
+					System.out.println(n);
+					System.out.println(p);
+				}
+			}
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+			parin = false;
+		}
+		// System.out.println("prinaam:" + parin);
 		return parin;
+	}
+
+	public static int logBase2(BigInteger value) {
+		if (!isPowerOfTwo(value)) {
+			throw new IllegalArgumentException("Value is not a power of 2.");
+		}
+		return value.bitLength() - 1;
+	}
+
+	public static boolean isPowerOfTwo(BigInteger value) {
+		return value.and(value.subtract(BigInteger.ONE)).equals(BigInteger.ZERO);
 	}
 
 	public static void saveFile(int n, String data) {
@@ -77,31 +149,48 @@ public class BholeGopalMersennePrime {
 			System.err.println("An error occurred while writing to the file: " + e.getMessage());
 		}
 	}
-	
-	public static int lastmeessen(){
-		int max=0;
+
+	public static int lastmeessen() {
+		int max = 0;
 		String result;
-		while (true){
-			result = getPrefixFValue(max+1);
-			if(result.equals("Not found")){
-				
+		while (true) {
+			result = getPrefixFValue(max + 1);
+			if (result.equals("Not found")) {
+
 				break;
 			}
 			max++;
 		}
-		
+
 		return max;
 	}
-	
-	
+
+	public static BigInteger fastPower(BigInteger base, long exp) {
+		BigInteger result = BigInteger.ONE;
+		BigInteger power = base;
+
+		while (exp > 0) {
+			if (exp % 2 == 1) { // If exp is odd
+				result = result.multiply(power);
+			}
+			power = power.multiply(power); // Square the base
+			exp /= 2; // Divide exp by 2
+		}
+
+		return result;
+	}
+
 	public static String getmersn(int n) {
 		String[] op = { "1", "7" };
-		String post = "f";
+
 		int maxn = lastmeessen();
 		int banne = 0;
-		long postlen = 0;
+		long fCount = 0;
+		long jarirak = 34069961;
+		// jarirak = 20647488;maxn = 51;
 		int mapsenik = 0;
 		String result;
+		BigInteger num;
 		String mersen = "Error";
 		while (banne < n) {
 			if (mapsenik < maxn) {
@@ -109,24 +198,36 @@ public class BholeGopalMersennePrime {
 				result = getPrefixFValue(mapsenik + 1);
 				String[] parts = result.split(",");
 				banne++;
-				post = "f".repeat(Integer.parseInt(parts[1]));
-				postlen = post.length();
+				fCount = (Integer.parseInt(parts[1]));
+
 				System.out.println("Mila " + banne + ". " + result);
 				mersen = result;
 				mapsenik++;
-
+				if (mapsenik == maxn) {
+					fCount = jarirak;
+				}
 			} else {
 				// nayi value yahan bnao
-				post += "f"; // n=(n*16)+15
-				postlen += 1;
+				// n=(n*16)+15
+				fCount += 1;
 				for (String option : op) {
 
 					// Create the Mersenne number in the form 0x{option} + f*
-					String hexNum = option + post;
-					// hex to biginteger
-					BigInteger num = new BigInteger(hexNum, 16);
-					if (isPrime(num, option+","+postlen)) {
-						long fCount = postlen;
+
+					if (option == "1") {
+						BigInteger base = BigInteger.valueOf(16);
+						BigInteger power = fastPower(base, fCount);
+						num = power.multiply(BigInteger.valueOf(2)).subtract(BigInteger.ONE);
+						// 2 * 16^fcount - 1
+					} else if (option == "7") {
+						BigInteger base = BigInteger.valueOf(16);
+						BigInteger power = fastPower(base, fCount);
+						num = power.multiply(BigInteger.valueOf(7)).add(power.subtract(BigInteger.ONE));
+						// 7 * 16^fcount + (16^fcount - 1)
+					} else {
+						throw new ArithmeticException("invalid prefix");
+					}
+					if (isPrime(num, option + "," + fCount)) {
 						mersen = option + "," + fCount;
 						banne++;
 						System.out.println("bnaya " + banne + ". Found: " + option + " f: " + fCount);
