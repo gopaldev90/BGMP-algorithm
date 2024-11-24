@@ -46,9 +46,18 @@ Generate Hexadecimal Numbers: The algorithm iteratively generates new potential 
 
 With post = "f", the hex numbers generated would be "1f" and "7f".
 With post = "ff", the numbers would be "1ff" and "7ff". The process continues by adding more "f"s to the post string for each iteration.
-
-
-Convert Hexadecimal to Decimal: Each generated hexadecimal string is converted to a BigInteger object, representing the number in decimal form.
+Note:
+appending a f to post will generate 
+if 1f=n
+then 1ff=(n*16)+15
+so using this
+we can directly calculate without using post string
+just from fcount 
+if we have prefix 1:
+so n= (2 * 16^fcount) - 1
+else if we have prefix 7:
+so n= 7 * (16^fcount) + ((16^fcount) - 1)
+using these formula we can efficiently creat number 
 
 
 Check for Primality: Each candidate number is checked for primality using the isProbablePrime() function with a certainty factor of 13. If the number is prime, it is added to the list of Mersenne primes.
@@ -60,9 +69,6 @@ Repeat Until Desired Count: The algorithm continues generating new candidates an
 #Samay jatilta(time complexity):
 Prime Checking: The isProbablePrime() method uses a probabilistic primality test, which works efficiently for large numbers but can have a non-deterministic performance depending on the number's size. In general, this test takes 
 𝑂(𝑘⋅log⁡^3 𝑛)time where n is the size of the number being checked, and k is the number of rounds of testing (13 in this case).
-
-
-Hexadecimal Generation: The loop generates new hexadecimal strings by incrementing the post string, which grows in size. Each new number generated involves the conversion of a hex string to a BigInteger, which can be done in 𝑂(log 𝑛) time, where n is the value represented by the hex number.
 
 
 Overall Complexity: The algorithm's time complexity is roughly 𝑂(𝑚⋅𝑘⋅log^3 𝑛)
