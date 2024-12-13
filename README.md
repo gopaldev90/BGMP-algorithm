@@ -59,9 +59,16 @@ else if we have prefix 7:
 so n= 7 * (16^fcount) + ((16^fcount) - 1)
 using these formula we can efficiently creat number 
 
-
-Check for Primality: Each candidate number is checked for primality using the isProbablePrime() function with a certainty factor of 13. If the number is prime, it is added to the list of Mersenne primes.
-
+# primality test
+let's say m is a generated mersanne number 
+we can write m as 2^p-1
+we will calculate p
+if p is prime{
+we will check m is using divide m by a large list of primes 
+if is pass{
+we will check using lucas lehmar test 
+}
+if the number m and p is prime and it pass lucas lehmar test it is added to the list of Mersenne primes.
 
 Repeat Until Desired Count: The algorithm continues generating new candidates and testing for primality until the list contains the desired number of Mersenne primes (in this case, 22).
 
